@@ -165,8 +165,8 @@ def startd(start):
                          func.avg(Measurement.tobs)).\
             filter(Measurement.date >= start_date).all()
     session.close()
-    result=list(np.ravel(temp))
-    return jsonify(result)
+    temp_data = list(np.ravel(temp))
+    return jsonify(temp_data)
 
         
 # start/end route 
@@ -175,7 +175,7 @@ def start_end(start, end):
     """Returns the min, max, and average temperatures from the given start date to the given end date """
     session=Session(engine)
     
-    start_date = dt.datetime.strptime(start,'%Y-%m-%d')
+    start_date = dt.datetime.strptime(start,"%Y-%m-%d")
     end_date = dt.datetime.strptime(end,"%Y-%m-%d")
     
     temp = session.query(func.min(Measurement.tobs),
@@ -184,8 +184,8 @@ def start_end(start, end):
             filter(Measurement.date >= start_date).\
             filter(Measurement.date <= end_date).all()
     session.close()
-    result=list(np.ravel(temp))
-    return jsonify(result)
+    temp_data = list(np.ravel(temp))
+    return jsonify(temp_data)
 
 
 
